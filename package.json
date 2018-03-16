@@ -1,0 +1,16 @@
+{
+  "name": "workshop-fp-ramda",
+  "version": "1.0.0",
+  "description":
+    "A workshop to teach functional programming in JS using Ramda.",
+  "main": "index.html",
+  "repository": "git@github.com:jlengstorf/workshop-fp-ramda.git",
+  "author": "Jason Lengstorf <jason@lengstorf.com>",
+  "scripts": {
+    "dev": "http-server -a localhost"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  },
+  "license": "MIT"
+}

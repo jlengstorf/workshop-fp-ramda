@@ -9,12 +9,9 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/ramda/0.25.0/ramda.min.js"></script>
     <script type="module">
-        import loadPhotos from './js/photos.js';
+        import loadPhotosOf from './js/photos.js';
 
-        const SEARCH_TERM = 'puppy';
-        const API_KEY = 'ADD_YOUR_API_KEY';
-
-        loadPhotos(SEARCH_TERM, API_KEY);
+        loadPhotosOf('puppies');
     </script>
 
     <link rel="stylesheet" href="./css/main.css" />
@@ -23,13 +20,13 @@
 <body>
     <div class="wrapper">
         <header class="header">
-            <h1>Puppies!</h1>
+            <h1>Look at all these cute-ass puppies!</h1>
             <p class="header__tagline">
                 Showing photos from
                 <a href="https://pixabay.com/">Pixabay</a>.
             </p>
         </header>
-        <div class="list">Loading...</div>
+        <div class="photos">Loading...</div>
     </div>
 </body>
 

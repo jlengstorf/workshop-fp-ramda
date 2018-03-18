@@ -8,7 +8,22 @@ import join from 'https://unpkg.com/ramda@0.25.0/es/join.js';
 import map from 'https://unpkg.com/ramda@0.25.0/es/map.js';
 import prop from 'https://unpkg.com/ramda@0.25.0/es/prop.js';
 import replace from 'https://unpkg.com/ramda@0.25.0/es/replace.js';
-import tap from 'https://unpkg.com/ramda@0.25.0/es/tap.js';
+
+/**
+ * Logs the argument with a label and returns it unchanged.
+ *
+ * This is a helper function that should only be used during development, or in
+ * conjunction with a library like `debug` (https://www.npmjs.com/package/debug)
+ * to avoid cluttering up the console in production applications.
+ *
+ * @param  {String} label describes what is being logged
+ * @param  {*}      arg   any argument
+ * @return {*}            returns the argument unchanged
+ */
+const logStatus = curry((label, obj) => {
+  console.log(label, obj);
+  return obj;
+});
 
 /**
  * Replaces the contents of a node matching the selector with the given markup.
@@ -90,7 +105,12 @@ const createURL = ({ search, key }) => {
  * @param  {String} search  the term to search for
  * @return {String}         API URL for searching Pixabay
  */
-const getSearchURL = compose(createURL, getKeyFromURL);
+const getSearchURL = compose(
+  logStatus('Generated Pixabay API URL'),
+  createURL,
+  logStatus('Search and API key object'),
+  getKeyFromURL
+);
 
 /**
  * Converts a full Pixabay image object into a simplified object.
@@ -184,20 +204,6 @@ async function fetchData(url) {
 }
 
 /**
- * Logs the argument and returns it unchanged.
- *
- * This is a helper function that should only be used during development, or in
- * conjunction with a library like `debug` (https://www.npmjs.com/package/debug)
- * to avoid cluttering up the console in production applications.
- *
- * @see http://ramdajs.com/docs/#tap
- *
- * @param  {*} arg  any argument
- * @return {*}      returns the argument unchanged
- */
-const logAndReturn = tap(console.log);
-
-/**
  * Creates markup for a given Pixabay API response and inserts it into the DOM.
  *
  * @see http://ramdajs.com/docs/#compose
@@ -207,8 +213,11 @@ const logAndReturn = tap(console.log);
  */
 const displayImages = compose(
   addToPhotoContainer,
+  logStatus('Image markup'),
   getImageMarkup,
-  getImagesArray
+  logStatus('Array of image objects'),
+  getImagesArray,
+  logStatus('API response from Pixabay')
 );
 
 /**
